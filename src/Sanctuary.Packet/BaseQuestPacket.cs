@@ -3,8 +3,9 @@ using Sanctuary.Core.IO;
 namespace Sanctuary.Packet;
 
 /// <summary>
-/// Quest packet family. Unlike most families the sub-opcode is 32-bit:
-/// header is i16 OpCode, u32 SubOpCode (both directions).
+/// Quest packet family (client handler FUN_00c7cd40). Unlike most families the
+/// sub-opcode is 32-bit: header is i16 OpCode, u32 SubOpCode (both directions; the
+/// client writes it with FUN_00a8f860).
 /// </summary>
 public class BaseQuestPacket
 {

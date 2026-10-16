@@ -16,6 +16,6 @@ public sealed class PlayerQuest
     public int GoalCount { get; set; }
 
     /// <summary>Quest objects already used for the active goal (not persisted; cleared when the goal changes). Read by
-    /// zone threads deciding object visibility, hence concurrent.</summary>
+    /// zone threads deciding object visibility, hence concurrent..</summary>
     public ConcurrentDictionary<ulong, byte> UsedObjects { get; } = [];
 }

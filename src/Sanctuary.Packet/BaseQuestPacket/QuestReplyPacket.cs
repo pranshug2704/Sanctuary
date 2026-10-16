@@ -6,7 +6,8 @@ namespace Sanctuary.Packet;
 
 /// <summary>
 /// The player's answer to a <see cref="QuestInfoPacket"/> offer.
-/// Client: QuestReplyPacket (49.2).
+/// Client: QuestReplyPacket (49.2), built by FUN_00a86400 from QuestScreen.AcceptQuest
+/// (FUN_00a97d70, accepted = true) / QuestScreen.DeclineQuest (FUN_00a97e10), written by FUN_00a91630.
 /// </summary>
 public class QuestReplyPacket : BaseQuestPacket, IDeserializable<QuestReplyPacket>
 {

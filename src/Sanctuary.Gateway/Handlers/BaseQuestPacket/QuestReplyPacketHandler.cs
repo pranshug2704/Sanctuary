@@ -4,6 +4,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using Sanctuary.Game;
+using Sanctuary.Game.ChatCommands;
+using Sanctuary.Game.Helpers;
 using Sanctuary.Packet;
 using Sanctuary.Packet.Common.Attributes;
 
@@ -30,7 +32,24 @@ public static class QuestReplyPacketHandler
             return false;
         }
 
-        _questManager.OnOfferReply(connection.Player, packet.QuestId, packet.Accepted);
+        _logger.LogInformation("{name}: quest {questId} {reply}.", nameof(QuestReplyPacket), packet.QuestId, packet.Accepted ? "accepted" : "declined");
+
+        if (packet.QuestId != ReverseEngineeringChatCommand.TestQuestId)
+        {
+            _questManager.OnOfferReply(connection.Player, packet.QuestId, packet.Accepted);
+            return true;
+        }
+
+        // The `!re quest offer` test quest.
+
+        if (packet.Accepted)
+        {
+            // The client keeps the quest giver close-up after Accept; release it.
+            connection.Player.SendTunneled(new CommandPacketQuestDialogDone());
+            connection.Player.SendTunneled(ReverseEngineeringChatCommand.CreateTestQuestAdd());
+        }
+        else
+            ChatHelper.SendSystemMessage(connection.Player, "Test quest declined.");
 
         return true;
     }

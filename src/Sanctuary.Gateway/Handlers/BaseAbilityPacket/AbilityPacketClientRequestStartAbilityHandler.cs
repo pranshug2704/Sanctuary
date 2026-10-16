@@ -67,8 +67,12 @@ public static class AbilityPacketClientRequestStartAbilityHandler
         if (abilityPacketClientRequestStartAbility.Data.Id == ConsumableAbility.ActionBarId)
             return HandleItemAbility(connection.Player, abilityPacketClientRequestStartAbility);
 
+        // The job combat bar (bar 1): the client names no target, the server picks one.
         if (_combatManager.TryUseAbility(connection.Player, abilityPacketClientRequestStartAbility.Data.Id, abilityPacketClientRequestStartAbility.Data.Slot))
             return true;
+
+        _logger.LogInformation("Unhandled ability request: bar {bar} slot {slot} target type {targetType} guid {guid}.",
+            abilityPacketClientRequestStartAbility.Data.Id, abilityPacketClientRequestStartAbility.Data.Slot, abilityPacketClientRequestStartAbility.Target, abilityPacketClientRequestStartAbility.Guid);
 
         return ConsumableAbility.SendFailure(connection.Player);
     }

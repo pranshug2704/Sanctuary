@@ -19,4 +19,6 @@ public interface IRewardManager
     /// <summary>A random piece of combat gear for the active job near its level (JobGearHelper); false if it has none.</summary>
     bool TryGrantJobGear(Player player, ulong sourceGuid = 0);
 
+    /// <summary>Sets a job's level and experience directly (dev command / admin).</summary>
+    bool TrySetJobLevel(Player player, int profileId, int level, int experience = 0);
 }

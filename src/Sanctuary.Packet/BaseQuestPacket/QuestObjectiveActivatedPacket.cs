@@ -5,7 +5,7 @@ namespace Sanctuary.Packet;
 /// <summary>
 /// Activates an objective of a journal quest (status 1) and sets its total, so the journal
 /// shows its progress as count/total.
-/// Client: QuestObjectiveActivatedPacket (49.8).
+/// Client: QuestObjectiveActivatedPacket (49.8), reader FUN_00c7b570, applied by FUN_00c7a910.
 /// </summary>
 public class QuestObjectiveActivatedPacket : BaseQuestPacket, ISerializablePacket
 {

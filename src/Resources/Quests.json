@@ -1,4 +1,5 @@
-// Quests offered by npcs (QuestManager). Text fields are client string ids. Goals run in order:
+// Quests offered by npcs (QuestManager). Text fields are client string ids
+// (search them with RE/tools/locale_search.py). Goals run in order:
 //   TalkToNpc     { TargetGuid }                 click the npc
 //   ReachLocation { ReachPosition, ReachRadius } walk there
 //   Collect       { CollectNodeType and/or CollectItemDefinitionId, RequiredCount }
@@ -7,7 +8,7 @@
 // Guids are the static npc guids from Scripts/Zone/*.lua.
 [
   {
-    // Original Memorial Caverns quest. Mural positions recorded in game.
+    // Original Memorial Caverns quest. Mural positions recorded in game with !re wp.
     "Comment": "Looking for Volunteers",
     "QuestId": 1,
     "TitleId": 21604,             // Looking for Volunteers

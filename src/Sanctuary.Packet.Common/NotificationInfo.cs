@@ -13,17 +13,18 @@ public class NotificationInfo : ISerializableType
 
     public int NotificationType { get; set; }
 
-    /// <summary>No visible effect.</summary>
+    /// <summary>Registered with <see cref="IconState"/> by FUN_00960170 (no visible effect in tests).</summary>
     public int IconId { get; set; }
 
     /// <summary>
     /// The marker drawn over the npc: a NotificationImages.txt id (e.g. 2 "!" quest available,
     /// 6 "?" quest objective / turn-in, 197 special quest, 378 repeatable quest). Must be &gt; 0 to
     /// draw anything; remove it with PlayerUpdatePacketRemoveNotifications using the same value.
+    /// Confirmed in game. Client entry slot [4], handler FUN_0092f460 case 10.
     /// </summary>
     public int IconState { get; set; }
 
-    /// <summary>When &gt; 0, stored on the npc.</summary>
+    /// <summary>When &gt; 0, stored on the npc (+0x718).</summary>
     public int Unknown { get; set; }
     public int NameId { get; set; }
     public int ReferenceId { get; set; }

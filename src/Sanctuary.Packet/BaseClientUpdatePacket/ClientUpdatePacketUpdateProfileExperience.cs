@@ -4,10 +4,10 @@ namespace Sanctuary.Packet;
 
 /// <summary>
 /// Updates one job's level and experience bar without the level-up fanfare.
-/// Client: ClientUpdatePacketUpdateProfileExperience (38.14).
+/// Client: ClientUpdatePacketUpdateProfileExperience (38.14), read layout i16 i16 u32 x6.
 /// </summary>
 /// <remarks>
-/// The handler finds the profile by id and stores the five values
+/// The handler (0x9392c0 case 0xe) finds the profile by id and stores the five values
 /// in the same order as ClientPcProfile's Rank, RankPercent, StarsAvailable, StarsEarned
 /// and Unknown20, then refreshes BaseClient.Profiles (LevelProgressBar, job browser).
 /// A rank change here (other than to 1) refreshes the player's equipment, but plays

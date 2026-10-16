@@ -1,7 +1,7 @@
 // Overworld enemies (CombatManager). Npcs whose Name is listed spawn hostile with a hit point
-// bar and fight back when attacked. Players have 1000 + 75 hit points per job level (2500 at 20).
+// bar and fight back when attacked. Players have 2500 hit points; job basics hit for ~250-280.
 //   AttackAnimationId: AnimationTypes.xml slot (1001 = com_h2h_attack_01); omit to use the model's own
-//     attacks/recoils/deaths from EnemyAnimations.json. Bow/spell models fight from 18m.
+//     attacks/recoils/deaths from EnemyAnimations.json (RE/tools/enemy_anims.py). Bow/spell models fight from 18m.
 //   Loot: Rewards.json table rolled on defeat (LootChance of the time, default 0.4); the item
 //     shows as a reward toast. The loot-* tables hold the game's sellable combat junk (category 43).
 //   GearChance: chance (default 0.08) a defeat also drops gear for the killer's job (JobGear.json).

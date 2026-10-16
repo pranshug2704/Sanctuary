@@ -17,6 +17,9 @@ public interface ICombatManager
     /// <summary>The player clicked (or pressed the interact key on) an npc: attacks it if it's an enemy.</summary>
     bool TryAttackTarget(Player player, Entities.Npc npc);
 
+    /// <summary>The nearest living enemy in the player's zone, optionally by (partial) name.</summary>
+    Entities.Npc? FindNearestEnemy(Player player, string? name = null);
+
     /// <summary>The player entered the world: overworld combat on (needed for floating hit numbers).</summary>
     void OnPlayerReady(Player player);
 }

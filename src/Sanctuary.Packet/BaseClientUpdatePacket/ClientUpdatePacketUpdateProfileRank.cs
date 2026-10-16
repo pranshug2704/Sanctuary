@@ -5,7 +5,7 @@ namespace Sanctuary.Packet;
 /// <summary>
 /// Sets one job's level. A higher rank than the client has plays the job level-up
 /// notification (Lua NotificationHandler:JobLevelUp, code string "JobLevelUp").
-/// Client: ClientUpdatePacketUpdateProfileRank (38.18).
+/// Client: ClientUpdatePacketUpdateProfileRank (38.18), read layout i16 i16 u32 u32.
 /// </summary>
 /// <remarks>
 /// The notification only animates for profiles whose BadgeImageSet is one of the

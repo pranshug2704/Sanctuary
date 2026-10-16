@@ -4,7 +4,8 @@ namespace Sanctuary.Packet;
 
 /// <summary>
 /// Completes an objective (status 2) and sets the quest's completed percentage.
-/// Client: QuestObjectiveCompletePacket (49.10).
+/// Client: QuestObjectiveCompletePacket (49.10), reader FUN_00c7b650, applied by FUN_00c7aa10,
+/// notified by FUN_00a936e0.
 /// </summary>
 public class QuestObjectiveCompletePacket : BaseQuestPacket, ISerializablePacket
 {
@@ -14,6 +15,7 @@ public class QuestObjectiveCompletePacket : BaseQuestPacket, ISerializablePacket
     public int ObjectiveId;
     public float CompletedPercentage;
 
+    /// <summary>Looked up in a client table when non-zero (FUN_007c4710), then FUN_00969590.</summary>
     public int Unknown;
 
     /// <summary>Same role as <see cref="QuestObjectiveUpdatePacket.Silent"/>.</summary>

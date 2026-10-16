@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
 using Sanctuary.Game;
+using Sanctuary.Game.ChatCommands;
 using Sanctuary.Packet;
 using Sanctuary.Packet.Common.Attributes;
 
@@ -30,7 +31,21 @@ public static class QuestEndReplyPacketHandler
             return false;
         }
 
-        _questManager.OnTurnInReply(connection.Player, packet.QuestId);
+        _logger.LogInformation("{name}: quest {questId} turned in.", nameof(QuestEndReplyPacket), packet.QuestId);
+
+        if (packet.QuestId != ReverseEngineeringChatCommand.TestQuestId)
+        {
+            _questManager.OnTurnInReply(connection.Player, packet.QuestId);
+            return true;
+        }
+
+        // The `!re quest end` test quest.
+        if (packet.QuestId == ReverseEngineeringChatCommand.TestQuestId)
+        {
+            // The client keeps the quest giver close-up after turn-in; release it.
+            connection.Player.SendTunneled(new CommandPacketQuestDialogDone());
+            connection.Player.SendTunneled(new QuestCompletePacket { QuestId = packet.QuestId });
+        }
 
         return true;
     }

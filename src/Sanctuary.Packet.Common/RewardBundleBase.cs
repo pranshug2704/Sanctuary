@@ -9,10 +9,10 @@ public sealed class RewardBundleBase : ISerializableType
     // This payload is shared by RewardBundlePacket and the reward embedded in client collection data.
     public bool Success = true;
 
-    /// <summary>Coins shown by quest reward screens.</summary>
+    /// <summary>Coins shown by quest reward screens (client +0x50, getter vtable +0x50; confirmed in game).</summary>
     public int Coins;
 
-    /// <summary>Experience shown by quest reward screens.</summary>
+    /// <summary>Experience shown by quest reward screens (client +0x48, getter vtable +0x3c).</summary>
     public int Experience;
     public int Unknown2;
     public int Unknown3 = 3;

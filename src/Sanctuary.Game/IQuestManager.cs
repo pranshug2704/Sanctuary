@@ -28,4 +28,9 @@ public interface IQuestManager
     /// <summary>Sends the player's active quests to the journal (once per login).</summary>
     void SendJournal(Player player);
 
+    /// <summary>Completes the current goal of the player's first unfinished quest (testing).</summary>
+    bool CompleteCurrentGoal(Player player);
+
+    /// <summary>Forgets the player's progress on every quest (testing). The client journal keeps them until relog.</summary>
+    int ResetAll(Player player);
 }

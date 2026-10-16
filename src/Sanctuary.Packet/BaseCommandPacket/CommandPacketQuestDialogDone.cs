@@ -5,9 +5,10 @@ namespace Sanctuary.Packet;
 /// <summary>
 /// Ends a quest offer / turn-in dialog: resets the camera from the quest giver close-up
 /// (QuestInfoPacket / QuestEndPacket QuestGiverGuid) back to the normal mode and calls
-/// QuestStartHandler:DismissEndScreen, which restores the HUD. Header only; named after its
-/// effect. The client resets the camera itself on Decline, but not on Accept or turn-in, so
-/// the server sends this after those replies.
+/// QuestStartHandler:DismissEndScreen, which restores the HUD. Header only.
+/// Client: CommandPacket handler FUN_00aa2560 case 0x1d -> FUN_00a99220 (class name not
+/// in the client; named here after its effect). The client resets the camera itself on
+/// Decline, but not on Accept or turn-in, so the server sends this after those replies.
 /// </summary>
 public class CommandPacketQuestDialogDone : BaseCommandPacket, ISerializablePacket
 {

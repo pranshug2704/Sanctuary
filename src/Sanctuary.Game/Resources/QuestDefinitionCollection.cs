@@ -14,7 +14,8 @@ namespace Sanctuary.Game.Resources;
 
 /// <summary>
 /// Quests from two files next to each other:
-/// QuestsGenerated.json, built from the client locale (invalid entries are skipped), and Quests.json, written by hand (strict; its quests replace generated
+/// QuestsGenerated.json, rebuilt from the client locale by RE/tools/quest_extract.py (invalid
+/// entries are skipped), and Quests.json, written by hand (strict; its quests replace generated
 /// ones with the same QuestId or TitleId).
 /// </summary>
 public sealed class QuestDefinitionCollection : ObservableConcurrentDictionary<int, QuestDefinition>

@@ -22,7 +22,7 @@ using Sanctuary.Packet.Common;
 namespace Sanctuary.Game;
 
 /// <summary>
-/// Overworld combat, built from what the client does with each packet:
+/// Overworld combat, built from what the client does with each packet (confirmed in game):
 /// <list type="bullet">
 /// <item>enemies are sent with AddNpc Disposition 0 (hostile name style) and Unknown41 (hit point bar);</item>
 /// <item>a hit is PlayerUpdatePacketHitPointModification: the target's bar or combat dock follows
@@ -212,6 +212,21 @@ public sealed class CombatManager : ICombatManager, IDisposable
         player.SendTunneled(new ClientUpdatePacketHitpoints { CurrentHitpoints = player.Hitpoints, MaxHitpoints = player.MaxHitpoints });
     }
 
+    public Npc? FindNearestEnemy(Player player, string? name = null)
+    {
+        lock (_sync)
+        {
+            EnsureEnemies(player.Zone);
+
+            return _enemies.Values
+                .Where(x => !x.Dead && x.Npc.Zone == player.Zone &&
+                    (name is null || x.Npc.Name.Contains(name, StringComparison.OrdinalIgnoreCase)))
+                .OrderBy(x => Distance(x.Npc.Position, player.Position))
+                .Select(x => x.Npc)
+                .FirstOrDefault();
+        }
+    }
+
     public bool TryAttackTarget(Player player, Npc npc)
     {
         lock (_sync)
@@ -361,7 +376,7 @@ public sealed class CombatManager : ICombatManager, IDisposable
 
         _questManager.OnDefeat(player, enemy.Npc);
 
-        _logger.LogDebug("{player} defeated {npc} ({guid}).", player.Guid, enemy.Npc.Name, enemy.Npc.Guid);
+        _logger.LogInformation("{player} defeated {npc} ({guid}).", player.Guid, enemy.Npc.Name, enemy.Npc.Guid);
     }
 
     #endregion
@@ -554,7 +569,7 @@ public sealed class CombatManager : ICombatManager, IDisposable
         LeaveCombat(player);
 
         ChatHelper.SendSystemMessage(player, "You were knocked out!");
-        _logger.LogDebug("{player} was knocked out.", player.Guid);
+        _logger.LogInformation("{player} was knocked out.", player.Guid);
     }
 
     private void Reset(Enemy enemy)

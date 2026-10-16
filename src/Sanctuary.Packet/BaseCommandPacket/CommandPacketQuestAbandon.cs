@@ -5,7 +5,8 @@ using Sanctuary.Core.IO;
 namespace Sanctuary.Packet;
 
 /// <summary>
-/// The player abandoning a quest from the journal. Answered with <see cref="QuestAbandonedPacket"/>.
+/// The player abandoning a quest from the journal (Lua QuestScreen.AbandonQuest, FUN_00c0a500;
+/// built by FUN_00c09f60, written by FUN_00c0a350). Answered with <see cref="QuestAbandonedPacket"/>.
 /// </summary>
 public class CommandPacketQuestAbandon : BaseCommandPacket, IDeserializable<CommandPacketQuestAbandon>
 {

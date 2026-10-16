@@ -4,7 +4,7 @@ namespace Sanctuary.Packet;
 
 /// <summary>
 /// Completes a quest: the client shows its "Quest Complete" notice and drops it from the journal.
-/// Client: QuestCompletePacket (49.4).
+/// Client: QuestCompletePacket (49.4), reader FUN_00c7b420.
 /// </summary>
 public class QuestCompletePacket : BaseQuestPacket, ISerializablePacket
 {

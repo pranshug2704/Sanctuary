@@ -183,7 +183,7 @@ public class RewardManager : IRewardManager
             if (!TrySaveJobLevel(player, profile, level, newExperience))
                 return false;
 
-            _logger.LogDebug("{player} gained {amount} experience as job {profileId}: level {level}, {experience}/{needed}.",
+            _logger.LogInformation("{player} gained {amount} experience as job {profileId}: level {level}, {experience}/{needed}.",
                 player.Guid, amount, profile.Id, level, newExperience, JobLevelHelper.ExperienceToNextLevel(level));
         }
 
@@ -198,10 +198,28 @@ public class RewardManager : IRewardManager
         if (item is null)
             return false;
 
-        _logger.LogDebug("{player} found gear {item} (rank {rank}, slot {slot}) as job {profileId}.",
+        _logger.LogInformation("{player} found gear {item} (rank {rank}, slot {slot}) as job {profileId}.",
             player.Guid, item.Id, item.MinProfileRank, item.Slot, profile.Id);
 
         return TryGrantItem(player, item.Id, 0, 1, sourceGuid);
+    }
+
+    public bool TrySetJobLevel(Player player, int profileId, int level, int experience = 0)
+    {
+        var profile = player.Profiles.FirstOrDefault(x => x.Id == profileId);
+
+        if (profile is null)
+            return false;
+
+        lock (profile)
+        {
+            level = JobLevelHelper.ClampLevel(level);
+            experience = level >= JobLevelHelper.MaxLevel
+                ? 0
+                : Math.Clamp(experience, 0, JobLevelHelper.ExperienceToNextLevel(level) - 1);
+
+            return TrySaveJobLevel(player, profile, level, experience);
+        }
     }
 
     private bool TrySaveJobLevel(Player player, ClientPcProfile profile, int level, int experience)

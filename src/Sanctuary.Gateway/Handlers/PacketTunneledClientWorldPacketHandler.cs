@@ -54,13 +54,13 @@ public static class PacketTunneledClientWorldPacketHandler
             _ => false
         };
 
-#if DEBUG
         if (!handled)
         {
+            // Logged in release too: unhandled client packets are what the server still has to learn.
             reader.Reset();
-            System.Diagnostics.Debug.WriteLine(reader.ReadTunneledPacketName(), "TunneledClientWorld");
+            _logger.LogInformation("Unhandled TunneledClientWorld packet {name} ( {data} )", reader.ReadTunneledPacketName(),
+                Convert.ToHexString(reader.Span.Length > 64 ? reader.Span[..64] : reader.Span));
         }
-#endif
 
         return handled;
     }

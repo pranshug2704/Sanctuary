@@ -260,6 +260,24 @@ public class QuestManager : IQuestManager
         }
     }
 
+    public bool CompleteCurrentGoal(Player player)
+    {
+        lock (player.Quests)
+        {
+            foreach (var (quest, definition) in ActiveQuests(player))
+            {
+                var goal = CurrentGoal(quest, definition);
+                if (goal is null)
+                    continue;
+
+                Advance(player, quest, definition, goal.RequiredCount);
+                return true;
+            }
+
+            return false;
+        }
+    }
+
     #endregion
 
     #region Goal events
@@ -574,7 +592,7 @@ public class QuestManager : IQuestManager
     #region Markers
 
     // NotificationImages.txt ids, drawn over the npc by PlayerUpdatePacketAddNotifications
-    //.
+    // (wire IconState is the image; confirmed in game with !re mark).
     private const int AvailableMarkerImage = 2;    // "!" icon_UI_objective_task_64
     private const int TalkMarkerImage = 6;         // "?" icon_UI_objective_quest_64
     private const int MarkerNotificationType = 1;
@@ -753,6 +771,25 @@ public class QuestManager : IQuestManager
         {
             _logger.LogError(ex, "Failed to delete quest {questId} for character {characterId}.", questId, characterId);
             return false;
+        }
+    }
+
+    public int ResetAll(Player player)
+    {
+        lock (player.Quests)
+        {
+            var characterId = GuidHelper.GetPlayerId(player.Guid);
+
+            using var dbContext = _dbContextFactory.CreateDbContext();
+            var removed = dbContext.CharacterQuests.Where(x => x.CharacterId == characterId).ExecuteDelete();
+
+            player.Quests.Clear();
+            player.PendingQuestOfferId = 0;
+            player.PendingQuestTurnInId = 0;
+            RefreshMarkers(player);
+            RefreshQuestObjects(player);
+
+            return removed;
         }
     }
 
