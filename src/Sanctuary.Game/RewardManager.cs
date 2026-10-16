@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Sanctuary.Core.IO;
 using Sanctuary.Database;
 using Sanctuary.Database.Entities;
 using Sanctuary.Game.Entities;
+using Sanctuary.Game.Helpers;
 using Sanctuary.Game.Resources.Definitions.Rewards;
 using Sanctuary.Packet;
 using Sanctuary.Packet.Common;
@@ -159,6 +161,88 @@ public class RewardManager : IRewardManager
         player.Coins = dbCharacter.Coins;
 
         player.SendTunneled(new ClientUpdatePacketCoinCount { Coins = player.Coins });
+
+        return true;
+    }
+
+    public bool TryGrantExperience(Player player, int amount)
+    {
+        if (amount <= 0)
+            return false;
+
+        var profile = player.ActiveProfile;
+
+        lock (profile)
+        {
+            if (profile.Rank >= JobLevelHelper.MaxLevel)
+                return false;
+
+            var experience = player.ProfileExperience.GetValueOrDefault(profile.Id);
+            var (level, newExperience) = JobLevelHelper.Add(profile.Rank, experience, amount);
+
+            if (!TrySaveJobLevel(player, profile, level, newExperience))
+                return false;
+
+            _logger.LogDebug("{player} gained {amount} experience as job {profileId}: level {level}, {experience}/{needed}.",
+                player.Guid, amount, profile.Id, level, newExperience, JobLevelHelper.ExperienceToNextLevel(level));
+        }
+
+        return true;
+    }
+
+    private bool TrySaveJobLevel(Player player, ClientPcProfile profile, int level, int experience)
+    {
+        var characterId = GuidHelper.GetPlayerId(player.Guid);
+
+        using var dbContext = _dbContextFactory.CreateDbContext();
+        var dbProfile = dbContext.Profiles.SingleOrDefault(x => x.CharacterId == characterId && x.Id == profile.Id);
+
+        if (dbProfile is null)
+            return false;
+
+        dbProfile.Level = level;
+        dbProfile.LevelXP = experience;
+
+        try
+        {
+            dbContext.SaveChanges();
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "Failed to save job level for {player}.", player.Guid);
+            return false;
+        }
+
+        var levelledUp = level > profile.Rank;
+
+        profile.Rank = level;
+        profile.RankPercent = JobLevelHelper.GetPercent(level, experience);
+        player.ProfileExperience[profile.Id] = experience;
+
+        // Rank first: the client only plays the level-up notification when the
+        // rank it receives is higher than the one it has.
+        if (levelledUp)
+            player.SendTunneled(new ClientUpdatePacketUpdateProfileRank { ProfileId = profile.Id, Rank = level });
+
+        player.SendTunneled(new ClientUpdatePacketUpdateProfileExperience
+        {
+            ProfileId = profile.Id,
+            Rank = profile.Rank,
+            RankPercent = profile.RankPercent,
+            StarsAvailable = profile.StarsAvailable,
+            StarsEarned = profile.StarsEarned,
+            Unknown = profile.Unknown20
+        });
+
+        // A new level brings more hit points, and fills them.
+        if (levelledUp && profile.Id == player.ActiveProfileId)
+        {
+            player.Hitpoints = player.MaxHitpoints;
+            player.SendTunneled(new ClientUpdatePacketHitpoints { CurrentHitpoints = player.Hitpoints, MaxHitpoints = player.MaxHitpoints });
+        }
+
+        if (levelledUp)
+            _logger.LogInformation("{player} reached level {level} as job {profileId}.", player.Guid, level, profile.Id);
 
         return true;
     }

@@ -47,4 +47,6 @@ public sealed class EnemyDefinition
     public int RespawnSeconds { get; set; } = 60;
 
     public int Coins { get; set; } = 10;
+
+    public int Experience { get; set; } = 10;
 }

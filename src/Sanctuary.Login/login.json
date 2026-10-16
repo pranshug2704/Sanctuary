@@ -10,6 +10,8 @@
     "DefaultTitleId": 0,
     "DefaultProfileId": 1,
 
+    "StartingJobLevel": 20,
+
     "StartingCoins": 999999999,
     "StartingStationCash": 999999999,
 

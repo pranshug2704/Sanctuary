@@ -1,5 +1,5 @@
 // Overworld enemies (CombatManager). Npcs whose Name is listed spawn hostile with a hit point
-// bar and fight back when attacked. Players have 2500 hit points.
+// bar and fight back when attacked. Players have 1000 + 75 hit points per job level (2500 at 20).
 //   AttackAnimationId: AnimationTypes.xml slot (1001 = com_h2h_attack_01); omit to use the model's own
 //     attacks/recoils/deaths from EnemyAnimations.json. Bow/spell models fight from 18m.
 //   AggroRange: attack players who come this close (0 = only when attacked)

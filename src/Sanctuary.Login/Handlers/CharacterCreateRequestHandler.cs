@@ -275,7 +275,7 @@ public static class CharacterCreateRequestHandler
         var dbProfile = new DbProfile
         {
             Id = profileData.Id,
-            Level = 20
+            Level = Math.Clamp(_options.StartingJobLevel, 1, 20)
         };
 
         dbCharacter.ActiveProfileId = dbProfile.Id;
@@ -369,7 +369,7 @@ public static class CharacterCreateRequestHandler
             var dbProfile = new DbProfile
             {
                 Id = profileData.Id,
-                Level = 20
+                Level = Math.Clamp(_options.StartingJobLevel, 1, 20)
             };
 
             // TODO

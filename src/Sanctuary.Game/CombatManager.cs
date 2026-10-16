@@ -208,6 +208,7 @@ public sealed class CombatManager : ICombatManager, IDisposable
     public void OnPlayerReady(Player player)
     {
         player.SendTunneled(new EncounterOverworldCombatPacket { InWorldCombat = true });
+        player.Hitpoints = Math.Min(player.Hitpoints, player.MaxHitpoints);
         player.SendTunneled(new ClientUpdatePacketHitpoints { CurrentHitpoints = player.Hitpoints, MaxHitpoints = player.MaxHitpoints });
     }
 
@@ -267,7 +268,7 @@ public sealed class CombatManager : ICombatManager, IDisposable
                 PlayEffect(player, player.Guid, ability.CastEffectId);
 
             foreach (var enemy in targets)
-                Hit(player, enemy, ability.Damage, ability.HitEffectId, now);
+                Hit(player, enemy, (int)(ability.Damage * JobLevelHelper.DamageMultiplier(player.ActiveProfile.Rank)), ability.HitEffectId, now);
 
             if (targets.Count > 0)
             {
@@ -347,6 +348,9 @@ public sealed class CombatManager : ICombatManager, IDisposable
 
         if (enemy.Definition.Coins > 0)
             _rewardManager.TryGrantCurrency(player, CurrencyType.Coins, enemy.Definition.Coins);
+
+        if (enemy.Definition.Experience > 0)
+            _rewardManager.TryGrantExperience(player, enemy.Definition.Experience);
 
         _questManager.OnDefeat(player, enemy.Npc);
 
@@ -595,6 +599,13 @@ public sealed class CombatManager : ICombatManager, IDisposable
 
                 if (player.InCombat && now - player.LastCombatTick > OutOfCombatMs)
                     LeaveCombat(player);
+
+                // Max hit points follow the active job's level (job switch, level up).
+                if (player.Hitpoints > player.MaxHitpoints)
+                {
+                    player.Hitpoints = player.MaxHitpoints;
+                    player.SendTunneled(new ClientUpdatePacketHitpoints { CurrentHitpoints = player.Hitpoints, MaxHitpoints = player.MaxHitpoints });
+                }
 
                 // Out of combat, hit points come back over ~20 seconds.
                 if (!player.InCombat && player.Hitpoints < player.MaxHitpoints)

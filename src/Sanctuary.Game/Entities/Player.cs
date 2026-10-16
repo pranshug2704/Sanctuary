@@ -1384,9 +1384,12 @@ public sealed class Player : ClientPcData, IEntity
 
     private int MaxEnergy { get; set; } = 100;
 
+    /// <summary>Experience into the current rank, by profile id (DbProfile.LevelXP; see JobLevelHelper).</summary>
+    public ConcurrentDictionary<int, int> ProfileExperience { get; } = [];
+
     /// <summary>Combat hit points (CombatManager); sent with ClientUpdatePacketHitpoints.</summary>
     public int Hitpoints { get; set; } = 2500;
-    public int MaxHitpoints { get; } = 2500;
+    public int MaxHitpoints => JobLevelHelper.MaxHitpoints(Profiles.Count == 0 ? JobLevelHelper.MaxLevel : ActiveProfile.Rank);
 
     /// <summary>Environment.TickCount64 of the last attack made or taken; drives the combat indicator.</summary>
     public long LastCombatTick { get; set; }

@@ -221,6 +221,8 @@ public class QuestManager : IQuestManager
             foreach (var item in definition.RewardItems)
                 _rewardManager.TryGrantItem(player, item.ItemDefinitionId, 0, item.Quantity, definition.EffectiveTurnInGuid);
 
+            if (definition.RewardExperience > 0)
+                _rewardManager.TryGrantExperience(player, definition.RewardExperience);
 
             player.SendTunneled(new QuestCompletePacket { QuestId = questId });
             RefreshMarkers(player);
