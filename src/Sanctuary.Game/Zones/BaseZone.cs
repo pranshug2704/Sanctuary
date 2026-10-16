@@ -815,6 +815,10 @@ public abstract class BaseZone : IZone, IDisposable
 
     public bool TryAddMount(Mount mount) => TryRegisterEntity(_npcs, mount);
 
+    public bool TryAddNpc(Npc npc) => TryRegisterEntity(_npcs, npc);
+
+    public ulong AllocateNpcGuid() => GetNpcGuid(null);
+
     public bool TryAddPlayer(Player player) => TryRegisterEntity(_players, player);
 
     public bool TryCreateNpc([MaybeNullWhen(false)] out Npc npc)

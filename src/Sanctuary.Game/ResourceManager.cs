@@ -63,6 +63,8 @@ public class ResourceManager : IResourceManager, IDisposable
     public static readonly string RewardTablesFile = Path.Combine(BaseDirectory, "Rewards.json");
     public static readonly string CombatAbilitiesFile = Path.Combine(BaseDirectory, "CombatAbilities.json");
     public static readonly string CombatJobsFile = Path.Combine(BaseDirectory, "CombatJobs.json");
+    public static readonly string QuestsFile = Path.Combine(BaseDirectory, "Quests.json");
+    public static readonly string QuestsGeneratedFile = Path.Combine(BaseDirectory, QuestDefinitionCollection.GeneratedFileName);
 
 
     public IdToStringLookup HairMappings { get; }
@@ -113,6 +115,7 @@ public class ResourceManager : IResourceManager, IDisposable
 
     public AbilityDefinitionCollection CombatAbilities { get; }
     public JobKitDefinitionCollection CombatJobs { get; }
+    public QuestDefinitionCollection Quests { get; }
 
     public ResourceManager(ILogger<ResourceManager> logger)
     {
@@ -171,6 +174,7 @@ public class ResourceManager : IResourceManager, IDisposable
         RewardTables = new(_logger);
         CombatAbilities = new(_logger);
         CombatJobs = new(_logger);
+        Quests = new(_logger);
     }
 
     public bool Load()
@@ -265,6 +269,9 @@ public class ResourceManager : IResourceManager, IDisposable
             return false;
 
         if (!CombatAbilities.Load(CombatAbilitiesFile))
+            return false;
+
+        if (!Quests.Load(QuestsFile))
             return false;
 
         if (!CombatJobs.Load(CombatJobsFile))
@@ -490,6 +497,8 @@ public class ResourceManager : IResourceManager, IDisposable
                 loaded = RewardTables.Load(RewardTablesFile);
             else if (e.FullPath == CombatAbilitiesFile)
                 loaded = CombatAbilities.Load(CombatAbilitiesFile);
+            else if (e.FullPath == QuestsFile || e.FullPath == QuestsGeneratedFile)
+                loaded = Quests.Load(QuestsFile);
             else if (e.FullPath == CombatJobsFile)
                 loaded = CombatJobs.Load(CombatJobsFile);
             else

@@ -98,6 +98,24 @@ public sealed class Player : ClientPcData, IEntity
     public int SecondsSinceLastLogin { get; set; } = -1;
     public ConcurrentSet<int> CollectedCollectionEntryIds { get; } = [];
 
+    /// <summary>Accepted quests by quest id, completed ones included (see IQuestManager).</summary>
+    public ConcurrentDictionary<int, Sanctuary.Game.Quests.PlayerQuest> Quests { get; } = [];
+
+    /// <summary>Quest offered and awaiting QuestReplyPacket; 0 = none.</summary>
+    public int PendingQuestOfferId { get; set; }
+
+    /// <summary>Quest whose turn-in window is open, awaiting QuestEndReplyPacket; 0 = none.</summary>
+    public int PendingQuestTurnInId { get; set; }
+
+    /// <summary>The journal is sent once per login, not on every zone load.</summary>
+    public bool QuestJournalSent { get; set; }
+
+    /// <summary>Quest marker image shown over each npc for this player (QuestManager).</summary>
+    public ConcurrentDictionary<ulong, int> QuestMarkers { get; } = [];
+
+    /// <summary>Raised after npcs come into view, so per-player overlays (quest markers) can be sent.</summary>
+    public static event Action<Player, IReadOnlyList<Npc>>? NpcsBecameVisible;
+
     public int StationCash { get; set; }
     public List<CoinStoreTransactionRecord> CoinStoreTransactions { get; set; } = [];
 
@@ -776,6 +794,8 @@ public sealed class Player : ClientPcData, IEntity
 
         foreach (var npc in visibleNpcs)
             VisibleNpcs.TryAdd(npc.Guid, npc);
+
+        NpcsBecameVisible?.Invoke(this, visibleNpcs);
     }
 
     public void OnAddVisiblePlayers(params IEnumerable<Player> players)
@@ -845,7 +865,10 @@ public sealed class Player : ClientPcData, IEntity
         }
 
         foreach (var npc in npcs)
+        {
             VisibleNpcs.TryRemove(npc.Guid, out _);
+            QuestMarkers.TryRemove(npc.Guid, out _);
+        }
     }
 
     private static RemoveNotificationInfo GetRemoveNotificationInfo(NotificationInfo notification) => new()
@@ -861,6 +884,17 @@ public sealed class Player : ClientPcData, IEntity
             return;
 
         SendTunneled(EntityHelper.GetRemovePlayerGracefullyPacket(npc.Guid, animate));
+
+        VisibleNpcs.TryRemove(npc.Guid, out _);
+    }
+
+    /// <summary>Removes an npc after <paramref name="delay"/> ms (e.g. once a death animation has played).</summary>
+    public void OnRemoveVisibleNpcGracefully(Npc npc, bool animate, int delay, int effectDelay, int compositeEffectId, int duration)
+    {
+        if (npc is Mount)
+            return;
+
+        SendTunneled(EntityHelper.GetRemovePlayerGracefullyPacket(npc.Guid, animate, delay, effectDelay, compositeEffectId, duration));
 
         VisibleNpcs.TryRemove(npc.Guid, out _);
     }

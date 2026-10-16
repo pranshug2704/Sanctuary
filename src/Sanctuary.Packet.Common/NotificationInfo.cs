@@ -13,8 +13,17 @@ public class NotificationInfo : ISerializableType
 
     public int NotificationType { get; set; }
 
+    /// <summary>No visible effect.</summary>
     public int IconId { get; set; }
+
+    /// <summary>
+    /// The marker drawn over the npc: a NotificationImages.txt id (e.g. 2 "!" quest available,
+    /// 6 "?" quest objective / turn-in, 197 special quest, 378 repeatable quest). Must be &gt; 0 to
+    /// draw anything; remove it with PlayerUpdatePacketRemoveNotifications using the same value.
+    /// </summary>
     public int IconState { get; set; }
+
+    /// <summary>When &gt; 0, stored on the npc.</summary>
     public int Unknown { get; set; }
     public int NameId { get; set; }
     public int ReferenceId { get; set; }

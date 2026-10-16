@@ -45,6 +45,10 @@ public interface IZone : IScriptableZone, IDisposable
 
     bool TryAddMount(Mount mount);
     bool TryAddNpc<TNpc>(Func<IZone, ulong, TNpc> createNpc, [MaybeNullWhen(false)] out TNpc npc) where TNpc : Npc;
+
+    /// <summary>Registers an npc built outside the zone (e.g. a <see cref="QuestObject"/>); give it a guid from <see cref="AllocateNpcGuid"/>.</summary>
+    bool TryAddNpc(Npc npc);
+    ulong AllocateNpcGuid();
     bool TryAddPlayer(Player player);
 
     bool TryCreateNpc([MaybeNullWhen(false)] out Npc npc);

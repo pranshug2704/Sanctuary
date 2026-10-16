@@ -67,6 +67,7 @@ public static class PacketTunneledClientPacketHandler
             PacketClientInitializationDetails.OpCode => PacketClientInitializationDetailsHandler.HandlePacket(connection, packetTunneledClientPacket.Payload),
             BaseNameChangePacket.OpCode => BaseNameChangePacketHandler.HandlePacket(connection, reader),
             ClientPathBasePacket.OpCode => ClientPathBasePacketHandler.HandlePacket(connection, reader),
+            BaseQuestPacket.OpCode => BaseQuestPacketHandler.HandlePacket(connection, reader),
             _ => false
         };
 

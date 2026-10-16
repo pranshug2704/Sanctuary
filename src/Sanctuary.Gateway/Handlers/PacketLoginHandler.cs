@@ -24,6 +24,7 @@ public static class PacketLoginHandler
     private static GatewayServerOptions _options = null!;
     private static IResourceManager _resourceManager = null!;
     private static IDbContextFactory<DatabaseContext> _dbContextFactory = null!;
+    private static IQuestManager _questManager = null!;
 
     public static void ConfigureServices(IServiceProvider serviceProvider)
     {
@@ -34,6 +35,7 @@ public static class PacketLoginHandler
 
         _resourceManager = serviceProvider.GetRequiredService<IResourceManager>();
         _dbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<DatabaseContext>>();
+        _questManager = serviceProvider.GetRequiredService<IQuestManager>();
 
         var options = serviceProvider.GetRequiredService<IOptionsMonitor<GatewayServerOptions>>();
         _options = options.CurrentValue;
@@ -84,6 +86,7 @@ public static class PacketLoginHandler
             .Include(x => x.User)
             .Include(x => x.Items)
             .Include(x => x.CollectionEntries)
+            .Include(x => x.Quests)
             .Include(x => x.Titles)
             .Include(x => x.Mounts)
             .Include(x => x.Pets)
@@ -225,6 +228,9 @@ public static class PacketLoginHandler
         // AchievementObjectiveActivatedPacket - Part 2?
 
         connection.SendSelfToClient();
+
+        // The quest journal (QuestManager sends it quiet, so no "Quest Started" toasts).
+        _questManager.SendJournal(connection.Player);
 
         _logger.LogInformation("{address} successfully logged in with character {name} ({id}).", connection.EndPoint.Address, character.FullName, character.Id);
 

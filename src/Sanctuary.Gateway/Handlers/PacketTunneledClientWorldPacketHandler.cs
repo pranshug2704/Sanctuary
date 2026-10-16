@@ -50,6 +50,7 @@ public static class PacketTunneledClientWorldPacketHandler
             PacketAddClientPortraitCrc.OpCode => PacketAddClientPortraitCrcHandler.HandlePacket(connection, packetTunneledClientWorldPacket.Payload),
             BaseFotomatPacket.OpCode => BaseFotomatPacketHandler.HandlePacket(connection, reader),
             WallOfDataBasePacket.OpCode => WallOfDataBasePacketHandler.HandlePacket(connection, reader),
+            BaseQuestPacket.OpCode => BaseQuestPacketHandler.HandlePacket(connection, reader),
             _ => false
         };
 

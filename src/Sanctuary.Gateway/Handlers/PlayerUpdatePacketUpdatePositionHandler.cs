@@ -3,6 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Sanctuary.Game;
 using Sanctuary.Packet;
 using Sanctuary.Packet.Common.Attributes;
 
@@ -12,11 +13,13 @@ namespace Sanctuary.Gateway.Handlers;
 public static class PlayerUpdatePacketUpdatePositionHandler
 {
     private static ILogger _logger = null!;
+    private static IQuestManager _questManager = null!;
 
     public static void ConfigureServices(IServiceProvider serviceProvider)
     {
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
         _logger = loggerFactory.CreateLogger(nameof(PlayerUpdatePacketUpdatePositionHandler));
+        _questManager = serviceProvider.GetRequiredService<IQuestManager>();
     }
 
     public static bool HandlePacket(GatewayConnection connection, Span<byte> data)
@@ -35,6 +38,8 @@ public static class PlayerUpdatePacketUpdatePositionHandler
         connection.Player.UpdatePosition(packet.Position, packet.Rotation);
 
         connection.Player.RelayPosition(packet);
+
+        _questManager.OnPositionChanged(connection.Player);
 
         return true;
     }

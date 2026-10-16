@@ -65,6 +65,7 @@ public class DbCharacter
 
     public ICollection<DbItem> Items { get; set; } = new HashSet<DbItem>();
     public ICollection<DbCollectionEntry> CollectionEntries { get; set; } = new HashSet<DbCollectionEntry>();
+    public ICollection<DbCharacterQuest> Quests { get; set; } = new HashSet<DbCharacterQuest>();
     public ICollection<DbTitle> Titles { get; set; } = new HashSet<DbTitle>();
     public ICollection<DbMount> Mounts { get; set; } = new HashSet<DbMount>();
     public ICollection<DbPet> Pets { get; set; } = new HashSet<DbPet>();

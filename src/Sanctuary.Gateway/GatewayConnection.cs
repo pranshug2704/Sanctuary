@@ -372,6 +372,17 @@ public class GatewayConnection : UdpConnection
         foreach (var collectionEntry in dbCharacter.CollectionEntries)
             Player.CollectedCollectionEntryIds.TryAdd(collectionEntry.EntryId);
 
+        foreach (var dbQuest in dbCharacter.Quests)
+        {
+            Player.Quests[dbQuest.QuestId] = new Sanctuary.Game.Quests.PlayerQuest
+            {
+                QuestId = dbQuest.QuestId,
+                Completed = dbQuest.Completed,
+                GoalProgress = dbQuest.GoalProgress,
+                GoalCount = dbQuest.GoalCount
+            };
+        }
+
         Player.Gender = dbCharacter.Gender;
 
         foreach (var dbMount in dbCharacter.Mounts)

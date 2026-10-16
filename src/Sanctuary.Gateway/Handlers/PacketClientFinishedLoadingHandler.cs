@@ -3,6 +3,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Sanctuary.Game;
 using Sanctuary.Packet;
 using Sanctuary.Packet.Common.Attributes;
 
@@ -12,11 +13,13 @@ namespace Sanctuary.Gateway.Handlers;
 public static class PacketClientFinishedLoadingHandler
 {
     private static ILogger _logger = null!;
+    private static IQuestManager _questManager = null!;
 
     public static void ConfigureServices(IServiceProvider serviceProvider)
     {
         var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
         _logger = loggerFactory.CreateLogger(nameof(PacketClientFinishedLoadingHandler));
+        _questManager = serviceProvider.GetRequiredService<IQuestManager>();
     }
 
     public static bool HandlePacket(GatewayConnection connection)
@@ -43,6 +46,8 @@ public static class PacketClientFinishedLoadingHandler
         connection.Player.SendTunneled(connection.Player.GetWeaponFlairOverridePacket());
 
         connection.Player.SendToolbar();
+
+        _questManager.SendJournal(connection.Player);
 
         return true;
     }

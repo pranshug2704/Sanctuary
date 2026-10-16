@@ -8,8 +8,12 @@ public sealed class RewardBundleBase : ISerializableType
 {
     // This payload is shared by RewardBundlePacket and the reward embedded in client collection data.
     public bool Success = true;
-    public int Unknown1;
-    public int RewardKind;
+
+    /// <summary>Coins shown by quest reward screens.</summary>
+    public int Coins;
+
+    /// <summary>Experience shown by quest reward screens.</summary>
+    public int Experience;
     public int Unknown2;
     public int Unknown3 = 3;
     public int Unknown4;
@@ -28,8 +32,8 @@ public sealed class RewardBundleBase : ISerializableType
     public void Serialize(PacketWriter writer)
     {
         writer.Write(Success);
-        writer.Write(Unknown1);
-        writer.Write(RewardKind);
+        writer.Write(Coins);
+        writer.Write(Experience);
         writer.Write(Unknown2);
         writer.Write(Unknown3);
         writer.Write(Unknown4);

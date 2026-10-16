@@ -32,6 +32,7 @@ public static class CommandPacketInteractRequestHandler
     private static IDbContextFactory<DatabaseContext> _dbContextFactory = null!;
     private static IResourceManager _resourceManager = null!;
     private static IRewardManager _rewardManager = null!;
+    private static IQuestManager _questManager = null!;
 
     public static void ConfigureServices(IServiceProvider serviceProvider)
     {
@@ -40,6 +41,7 @@ public static class CommandPacketInteractRequestHandler
         _dbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<DatabaseContext>>();
         _resourceManager = serviceProvider.GetRequiredService<IResourceManager>();
         _rewardManager = serviceProvider.GetRequiredService<IRewardManager>();
+        _questManager = serviceProvider.GetRequiredService<IQuestManager>();
     }
 
     public static bool HandlePacket(GatewayConnection connection, ReadOnlySpan<byte> data)
@@ -67,6 +69,9 @@ public static class CommandPacketInteractRequestHandler
         }
         if (entity is CollectionCoin collectionCoin)
             return HandleCollectionCoin(connection, collectionCoin);
+
+        if (entity is Npc npc && _questManager.TryInteract(connection.Player, npc))
+            return true;
 
         entity.OnInteract(connection.Player);
         return true;
@@ -312,6 +317,8 @@ public static class CommandPacketInteractRequestHandler
 
             if (!SendCollectionProgress(connection, collectionProgress))
                 SendCollectionRewardToast(connection, clientItem, itemDefinition, node);
+
+            _questManager.OnCollect(connection.Player, node.TypeDefinition.Key, itemDefinitionId);
 
             return true;
         }
