@@ -32,6 +32,9 @@ namespace Sanctuary.Game;
 /// </summary>
 public class QuestManager : IQuestManager
 {
+    /// <summary>Chance (0-1) that turning in a quest also grants gear for the active job (JobGearHelper).</summary>
+    private const double QuestGearChance = 0.25;
+
     /// <summary>Quests live in the open world (FabledRealms), not in houses or combat instances.</summary>
     private const int QuestZoneDefinitionId = 1;
 
@@ -223,6 +226,10 @@ public class QuestManager : IQuestManager
 
             if (definition.RewardExperience > 0)
                 _rewardManager.TryGrantExperience(player, definition.RewardExperience);
+
+            // A bonus piece of gear for the player's job now and then, so quests feed the level system.
+            if (Random.Shared.NextDouble() < QuestGearChance)
+                _rewardManager.TryGrantJobGear(player, definition.EffectiveTurnInGuid);
 
             player.SendTunneled(new QuestCompletePacket { QuestId = questId });
             RefreshMarkers(player);

@@ -1,0 +1,73 @@
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text.Json;
+
+using Sanctuary.Packet.Common;
+
+namespace Sanctuary.Game.Helpers;
+
+/// <summary>
+/// Combat gear a job can find (enemy drops, quest bonuses): Resources/JobGear.json, built from
+/// the item classes only that job may equip, armour and weapons.
+/// A pick is a piece at most <see cref="LevelsBelow"/> ranks below the player's, then one of its
+/// tint variants (each tint is its own item definition) that fits the player's gender.
+/// </summary>
+public static class JobGearHelper
+{
+    public const int LevelsBelow = 3;
+
+    private const int AnyGender = 0;
+
+    private sealed class Piece
+    {
+        public int Rank { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public List<int> Items { get; set; } = [];
+    }
+
+    private static readonly Lazy<Dictionary<int, List<Piece>>> Pieces = new(Load);
+
+    public static ClientItemDefinition? Pick(IResourceManager resourceManager, int profileId, int rank, int gender)
+    {
+        if (!Pieces.Value.TryGetValue(profileId, out var pieces))
+            return null;
+
+        var choices = pieces
+            .Where(x => x.Rank <= rank && x.Rank >= Math.Max(1, rank - LevelsBelow))
+            .Select(x => x.Items
+                .Select(id => resourceManager.ClientItemDefinitions.TryGetValue(id, out var item) ? item : null)
+                .OfType<ClientItemDefinition>()
+                .Where(item => item.GenderUsage == AnyGender || item.GenderUsage == gender)
+                .ToList())
+            .Where(x => x.Count > 0)
+            .ToList();
+
+        if (choices.Count == 0)
+            return null;
+
+        var variants = choices[Random.Shared.Next(choices.Count)];
+        return variants[Random.Shared.Next(variants.Count)];
+    }
+
+    private static Dictionary<int, List<Piece>> Load()
+    {
+        var path = Path.Combine(ResourceManager.BaseDirectory, "JobGear.json");
+
+        if (!File.Exists(path))
+            return [];
+
+        using var stream = File.OpenRead(path);
+        var byProfile = JsonSerializer.Deserialize<Dictionary<string, List<Piece>>>(stream, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true,
+            ReadCommentHandling = JsonCommentHandling.Skip,
+            AllowTrailingCommas = true
+        }) ?? [];
+
+        return byProfile
+            .Where(x => int.TryParse(x.Key, out _))
+            .ToDictionary(x => int.Parse(x.Key), x => x.Value);
+    }
+}

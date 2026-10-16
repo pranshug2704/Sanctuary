@@ -49,4 +49,13 @@ public sealed class EnemyDefinition
     public int Coins { get; set; } = 10;
 
     public int Experience { get; set; } = 10;
+
+    /// <summary>Rewards.json table rolled when it's defeated (empty = no loot).</summary>
+    public string Loot { get; set; } = string.Empty;
+
+    /// <summary>Chance (0-1) that a defeat rolls the Loot table.</summary>
+    public double LootChance { get; set; } = 0.4;
+
+    /// <summary>Chance (0-1) that a defeat also drops a piece of gear for the killer's job (JobGearHelper).</summary>
+    public double GearChance { get; set; } = 0.08;
 }

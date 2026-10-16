@@ -352,6 +352,13 @@ public sealed class CombatManager : ICombatManager, IDisposable
         if (enemy.Definition.Experience > 0)
             _rewardManager.TryGrantExperience(player, enemy.Definition.Experience);
 
+        if (!string.IsNullOrEmpty(enemy.Definition.Loot) && Random.Shared.NextDouble() < enemy.Definition.LootChance &&
+            _rewardManager.TryRollReward(enemy.Definition.Loot, out var drop) && drop is not null)
+            _rewardManager.TryGrantReward(player, drop, enemy.Npc.Guid);
+
+        if (Random.Shared.NextDouble() < enemy.Definition.GearChance)
+            _rewardManager.TryGrantJobGear(player, enemy.Npc.Guid);
+
         _questManager.OnDefeat(player, enemy.Npc);
 
         _logger.LogDebug("{player} defeated {npc} ({guid}).", player.Guid, enemy.Npc.Name, enemy.Npc.Guid);

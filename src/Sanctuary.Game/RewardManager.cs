@@ -190,6 +190,20 @@ public class RewardManager : IRewardManager
         return true;
     }
 
+    public bool TryGrantJobGear(Player player, ulong sourceGuid = 0)
+    {
+        var profile = player.ActiveProfile;
+        var item = JobGearHelper.Pick(_resourceManager, profile.Id, profile.Rank, player.Gender);
+
+        if (item is null)
+            return false;
+
+        _logger.LogDebug("{player} found gear {item} (rank {rank}, slot {slot}) as job {profileId}.",
+            player.Guid, item.Id, item.MinProfileRank, item.Slot, profile.Id);
+
+        return TryGrantItem(player, item.Id, 0, 1, sourceGuid);
+    }
+
     private bool TrySaveJobLevel(Player player, ClientPcProfile profile, int level, int experience)
     {
         var characterId = GuidHelper.GetPlayerId(player.Guid);

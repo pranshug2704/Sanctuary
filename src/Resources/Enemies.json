@@ -2,32 +2,35 @@
 // bar and fight back when attacked. Players have 1000 + 75 hit points per job level (2500 at 20).
 //   AttackAnimationId: AnimationTypes.xml slot (1001 = com_h2h_attack_01); omit to use the model's own
 //     attacks/recoils/deaths from EnemyAnimations.json. Bow/spell models fight from 18m.
+//   Loot: Rewards.json table rolled on defeat (LootChance of the time, default 0.4); the item
+//     shows as a reward toast. The loot-* tables hold the game's sellable combat junk (category 43).
+//   GearChance: chance (default 0.08) a defeat also drops gear for the killer's job (JobGear.json).
 //   AggroRange: attack players who come this close (0 = only when attacked)
 // Original stats are unknown; these are tuned so a basic attack chain takes a few hits.
 [
-  { "Comment": "Pixie Nursery / Floren Forest", "Names": [ "Floren Leafling" ], "MaxHitpoints": 700, "Damage": 60, "Coins": 8 },
-  { "Names": [ "Floren Defender" ], "MaxHitpoints": 1100, "Damage": 90, "Coins": 12 },
-  { "Names": [ "Nettleseed Pest", "Nettleseed Nibbler" ], "MaxHitpoints": 450, "Damage": 40, "Coins": 5 },
-  { "Comment": "Hooligans and thugs", "Names": [ "Hooligan", "Hooligan Archer", "Skullz Thug", "Skullz Hooligan" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10 },
-  { "Names": [ "Hooligan Wolf" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10 },
-  { "Names": [ "Bandit Patrolman" ], "MaxHitpoints": 1000, "Damage": 90, "Coins": 12 },
-  { "Names": [ "Thugawug Stomper" ], "MaxHitpoints": 1300, "Damage": 110, "Coins": 15 },
-  { "Comment": "Robgoblins", "Names": [ "Robgoblin Kaboomer", "Robgoblin Tinkerer", "Robgoblin Mechanic", "Robgoblin Shinyseeker", "Robgoblin Scavenger" ], "MaxHitpoints": 800, "Damage": 70, "Coins": 10 },
-  { "Comment": "Ninjas", "Names": [ "Ninja Apprentice", "Ninja Ambusher", "Ninja Deceiver", "Ghost Ninja", "Ghost Ninja Striker", "Ninjawug Blademaster", "Ninjawug Archer", "Ninjawug Bixie-rider" ], "MaxHitpoints": 1100, "Damage": 100, "Coins": 14 },
-  { "Comment": "Bixies", "Names": [ "Bixie Guardian", "Bixie Magus" ], "MaxHitpoints": 1000, "Damage": 90, "Coins": 12 },
-  { "Comment": "Wilds and graveyard", "Names": [ "Grave Elemental", "Mini Necrowart Zombie", "Necrowart Zombie2", "Necrowart Zombie3" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Ursine Vine" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Alpha Wolf" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Bristlewood Vulture" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Bristlewood Arachnid" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Troll Bone Shaman" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Broken Robot Guard" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Comment": "Shores and swamps", "Names": [ "Cray Snapper", "Cray Bubbler" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10 },
-  { "Names": [ "Monsterous Necrowart", "Moldering Fungaloid" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Tormented Spirit" ], "MaxHitpoints": 1100, "Damage": 95, "Coins": 14 },
-  { "Names": [ "Vulture" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10 },
-  { "Comment": "Snowhill", "Names": [ "Frostfang Growler" ], "MaxHitpoints": 1100, "Damage": 95, "Coins": 14 },
-  { "Names": [ "Troll Summoner" ], "MaxHitpoints": 1300, "Damage": 110, "Coins": 16 },
-  { "Names": [ "Stealthy Despoiler" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15 },
-  { "Names": [ "Skullz Commander" ], "MaxHitpoints": 1500, "Damage": 120, "Coins": 20 }
+  { "Comment": "Pixie Nursery / Floren Forest", "Names": [ "Floren Leafling" ], "MaxHitpoints": 700, "Damage": 60, "Coins": 8, "Loot": "loot-floren" },
+  { "Names": [ "Floren Defender" ], "MaxHitpoints": 1100, "Damage": 90, "Coins": 12, "Loot": "loot-floren" },
+  { "Names": [ "Nettleseed Pest", "Nettleseed Nibbler" ], "MaxHitpoints": 450, "Damage": 40, "Coins": 5, "Loot": "loot-fungus" },
+  { "Comment": "Hooligans and thugs", "Names": [ "Hooligan", "Hooligan Archer", "Skullz Thug", "Skullz Hooligan" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10, "Loot": "loot-hooligan" },
+  { "Names": [ "Hooligan Wolf" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10, "Loot": "loot-wolf" },
+  { "Names": [ "Bandit Patrolman" ], "MaxHitpoints": 1000, "Damage": 90, "Coins": 12, "Loot": "loot-bandit" },
+  { "Names": [ "Thugawug Stomper" ], "MaxHitpoints": 1300, "Damage": 110, "Coins": 15, "Loot": "loot-bandit" },
+  { "Comment": "Robgoblins", "Names": [ "Robgoblin Kaboomer", "Robgoblin Tinkerer", "Robgoblin Mechanic", "Robgoblin Shinyseeker", "Robgoblin Scavenger" ], "MaxHitpoints": 800, "Damage": 70, "Coins": 10, "Loot": "loot-robgoblin" },
+  { "Comment": "Ninjas", "Names": [ "Ninja Apprentice", "Ninja Ambusher", "Ninja Deceiver", "Ghost Ninja", "Ghost Ninja Striker", "Ninjawug Blademaster", "Ninjawug Archer", "Ninjawug Bixie-rider" ], "MaxHitpoints": 1100, "Damage": 100, "Coins": 14, "Loot": "loot-ninja" },
+  { "Comment": "Bixies", "Names": [ "Bixie Guardian", "Bixie Magus" ], "MaxHitpoints": 1000, "Damage": 90, "Coins": 12, "Loot": "loot-bixie" },
+  { "Comment": "Wilds and graveyard", "Names": [ "Grave Elemental", "Mini Necrowart Zombie", "Necrowart Zombie2", "Necrowart Zombie3" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-undead" },
+  { "Names": [ "Ursine Vine" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-golem" },
+  { "Names": [ "Alpha Wolf" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-wolf" },
+  { "Names": [ "Bristlewood Vulture" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-vulture" },
+  { "Names": [ "Bristlewood Arachnid" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-spider" },
+  { "Names": [ "Troll Bone Shaman" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-troll" },
+  { "Names": [ "Broken Robot Guard" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-robot" },
+  { "Comment": "Shores and swamps", "Names": [ "Cray Snapper", "Cray Bubbler" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10, "Loot": "loot-cray" },
+  { "Names": [ "Monsterous Necrowart", "Moldering Fungaloid" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-undead" },
+  { "Names": [ "Tormented Spirit" ], "MaxHitpoints": 1100, "Damage": 95, "Coins": 14, "Loot": "loot-spirit" },
+  { "Names": [ "Vulture" ], "MaxHitpoints": 900, "Damage": 80, "Coins": 10, "Loot": "loot-vulture" },
+  { "Comment": "Snowhill", "Names": [ "Frostfang Growler" ], "MaxHitpoints": 1100, "Damage": 95, "Coins": 14, "Loot": "loot-wolf" },
+  { "Names": [ "Troll Summoner" ], "MaxHitpoints": 1300, "Damage": 110, "Coins": 16, "Loot": "loot-troll" },
+  { "Names": [ "Stealthy Despoiler" ], "MaxHitpoints": 1200, "Damage": 100, "Coins": 15, "Loot": "loot-ninja" },
+  { "Names": [ "Skullz Commander" ], "MaxHitpoints": 1500, "Damage": 120, "Coins": 20, "Loot": "loot-hooligan" }
 ]
