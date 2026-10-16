@@ -1,0 +1,22 @@
+using System.Collections.Generic;
+
+namespace Sanctuary.Game.Resources.Definitions.Combat;
+
+/// <summary>
+/// Combat animations one enemy model has (Resources/EnemyAnimations.json, by ModelId),
+/// taken from the model's .adr animation slots.
+/// </summary>
+public sealed class EnemyAnimationSet
+{
+    public string Model { get; set; } = string.Empty;
+
+    /// <summary>AnimationTypes.xml attack slots; swings cycle through them.</summary>
+    public List<int> Attacks { get; set; } = [];
+
+    public List<int> Recoil { get; set; } = [];
+
+    public List<int> Death { get; set; } = [];
+
+    /// <summary>Bow (com_range_attack, 1101-1105) or spell (com_cast, 1111-1119) attacks: fights from a distance.</summary>
+    public bool IsRanged => Attacks.Count > 0 && Attacks.TrueForAll(x => x is >= 1101 and <= 1119);
+}

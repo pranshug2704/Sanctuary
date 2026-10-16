@@ -1384,6 +1384,52 @@ public sealed class Player : ClientPcData, IEntity
 
     private int MaxEnergy { get; set; } = 100;
 
+    /// <summary>Combat hit points (CombatManager); sent with ClientUpdatePacketHitpoints.</summary>
+    public int Hitpoints { get; set; } = 2500;
+    public int MaxHitpoints { get; } = 2500;
+
+    /// <summary>Environment.TickCount64 of the last attack made or taken; drives the combat indicator.</summary>
+    public long LastCombatTick { get; set; }
+    public bool InCombat { get; set; }
+    public long NextBasicAttackTick { get; set; }
+
+    /// <summary>The enemy the player clicked last; single-target attacks prefer it while in reach.</summary>
+    public ulong CombatTargetGuid { get; set; }
+
+    public int CurrentEnergy => _energy;
+
+    public bool TrySpendEnergy(int amount)
+    {
+        if (amount <= 0)
+            return true;
+
+        if (_energy < amount)
+            return false;
+
+        Energy = _energy - amount;
+        return true;
+    }
+
+    public void AddEnergy(int amount)
+    {
+        if (amount > 0 && _energy < MaxEnergy)
+            Energy = _energy + amount;
+    }
+
+    /// <summary>The active job's combat bar ability in a slot (0 = basic, 1 = special) for the equipped weapon.</summary>
+    public bool TryGetCombatAbility(int slot, [NotNullWhen(true)] out JobKitDefinition? kit, [NotNullWhen(true)] out AbilityDefinition? ability)
+    {
+        ability = null;
+
+        if (!_resourceManager.CombatJobs.TryGetValue(ActiveProfileId, out kit))
+            return false;
+
+        var (basic, special) = ResolveWeaponAbilities(kit, GetEquippedWeaponDefinitionId());
+        ability = slot == 0 ? basic : slot == 1 ? special : null;
+
+        return ability is not null;
+    }
+
     public int GetEquippedWeaponDefinitionId() => GetEquippedItem(WeaponSlot)?.Definition ?? 0;
 
     public bool SendToolbar()

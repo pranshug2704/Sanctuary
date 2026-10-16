@@ -1,0 +1,721 @@
+// Generated from each enemy model's .adr: its combat animations, by ModelId.
+{
+  "10": {
+    "Model": "ghostdwarf_m_miner_01.adr",
+    "Names": [
+      "Tormented Spirit"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "52": {
+    "Model": "blackwidow_01.adr",
+    "Names": [
+      "Bristlewood Arachnid"
+    ],
+    "Attacks": [
+      1001
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "71": {
+    "Model": "necrowartzombie_01.adr",
+    "Names": [
+      "Moldering Fungaloid",
+      "Necrowart Zombie3"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "72": {
+    "Model": "necrowartzombie_02.adr",
+    "Names": [
+      "Necrowart Zombie2"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "73": {
+    "Model": "necrowartzombie_03.adr",
+    "Names": [
+      "Mini Necrowart Zombie"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "134": {
+    "Model": "floren.adr",
+    "Names": [
+      "Floren Defender",
+      "Floren Leafling"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "160": {
+    "Model": "maneatingfungus.adr",
+    "Names": [
+      "Nettleseed Pest"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "168": {
+    "Model": "troll_shaman.adr",
+    "Names": [
+      "Troll Bone Shaman",
+      "Troll Summoner"
+    ],
+    "Attacks": [
+      1111,
+      1112
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "176": {
+    "Model": "wolf.adr",
+    "Names": [
+      "Frostfang Growler"
+    ],
+    "Attacks": [
+      1001
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "189": {
+    "Model": "robgoblin_m_bruiser.adr",
+    "Names": [
+      "Robgoblin Scavenger"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "199": {
+    "Model": "chugawug_m_bandit_01.adr",
+    "Names": [
+      "Bandit Patrolman"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "200": {
+    "Model": "chugawug_f_bandit_01.adr",
+    "Names": [
+      "Thugawug Stomper"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "203": {
+    "Model": "human_m_hooligan_brawler_01.agr",
+    "Names": [
+      "Hooligan"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "235": {
+    "Model": "bear_vinegolem_fungus.adr",
+    "Names": [
+      "Ursine Vine"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "343": {
+    "Model": "vulture.adr",
+    "Names": [
+      "Bristlewood Vulture"
+    ],
+    "Attacks": [
+      1001,
+      1002
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "393": {
+    "Model": "human_m_ninja_shadowtalon_05.agr",
+    "Names": [
+      "Ninja Ambusher"
+    ],
+    "Attacks": [
+      1061,
+      1062,
+      1063,
+      1064
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "394": {
+    "Model": "human_m_ninja_shadowtalon_02.agr",
+    "Names": [
+      "Ninja Deceiver"
+    ],
+    "Attacks": [
+      1061,
+      1062,
+      1063,
+      1064
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "395": {
+    "Model": "human_m_ninja_shadowtalon_03.agr",
+    "Names": [
+      "Ninja Apprentice"
+    ],
+    "Attacks": [
+      1061,
+      1062,
+      1063,
+      1064
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "470": {
+    "Model": "cray_ocean.adr",
+    "Names": [
+      "Cray Snapper"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "471": {
+    "Model": "cray_arctic_swamp.adr",
+    "Names": [
+      "Cray Bubbler"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "489": {
+    "Model": "human_m_hooligan_brawler_02.agr",
+    "Names": [
+      "Hooligan"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "518": {
+    "Model": "human_f_hooligan_brawler_01.agr",
+    "Names": [
+      "Hooligan"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "520": {
+    "Model": "human_m_hooligan_archer_02.agr",
+    "Names": [
+      "Hooligan Archer"
+    ],
+    "Attacks": [
+      1101,
+      1102,
+      1103,
+      1104,
+      1105
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "767": {
+    "Model": "graveelemental_m_skullwgraves.adr",
+    "Names": [
+      "Grave Elemental"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "945": {
+    "Model": "human_m_ninja_ghost.adr",
+    "Names": [
+      "Ghost Ninja",
+      "Ghost Ninja Striker",
+      "Stealthy Despoiler"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "1519": {
+    "Model": "cactaur_m_metal.adr",
+    "Names": [
+      "Broken Robot Guard"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122,
+      1123
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "1681": {
+    "Model": "robgoblin_m_gogglesgears.adr",
+    "Names": [
+      "Robgoblin Mechanic",
+      "Robgoblin Shinyseeker"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "1682": {
+    "Model": "robgoblin_m_master.adr",
+    "Names": [
+      "Robgoblin Kaboomer",
+      "Robgoblin Tinkerer"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "3217": {
+    "Model": "necrowartzombie_01.adr",
+    "Names": [
+      "Mini Necrowart Zombie",
+      "Monsterous Necrowart"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "3250": {
+    "Model": "maneatingplant.adr",
+    "Names": [
+      "Nettleseed Nibbler"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "3284": {
+    "Model": "wolf_generic.adr",
+    "Names": [
+      "Alpha Wolf",
+      "Hooligan Wolf"
+    ],
+    "Attacks": [
+      1001,
+      1002
+    ],
+    "Recoil": [],
+    "Death": [
+      1151
+    ]
+  },
+  "3986": {
+    "Model": "vulture_sunstone.adr",
+    "Names": [
+      "Vulture"
+    ],
+    "Attacks": [
+      1001,
+      1002
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "4011": {
+    "Model": "dwarf_m_bikerthug_skullz.adr",
+    "Names": [
+      "Skullz Commander",
+      "Skullz Hooligan",
+      "Skullz Thug"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [],
+    "Death": [
+      1151
+    ]
+  },
+  "4202": {
+    "Model": "robgoblin_m_junkmaster.adr",
+    "Names": [
+      "Robgoblin Kaboomer"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "4464": {
+    "Model": "chugawug_m_ninja_archer_01.adr",
+    "Names": [
+      "Ninjawug Archer"
+    ],
+    "Attacks": [
+      1101
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "4465": {
+    "Model": "chugawug_m_ninja_blademaster_01.adr",
+    "Names": [
+      "Ninjawug Blademaster"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "4467": {
+    "Model": "chugawug_m_ninjawug_bixie_rider_01.adr",
+    "Names": [
+      "Ninjawug Bixie-rider"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "4473": {
+    "Model": "bixie_f_mage_gloamed.adr",
+    "Names": [
+      "Bixie Magus"
+    ],
+    "Attacks": [
+      1113,
+      1114
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  },
+  "4474": {
+    "Model": "bixie_m_elite_guard_gloamed.adr",
+    "Names": [
+      "Bixie Guardian"
+    ],
+    "Attacks": [
+      1001,
+      1002,
+      1003,
+      1004
+    ],
+    "Recoil": [
+      1121,
+      1122
+    ],
+    "Death": [
+      1151
+    ]
+  }
+}

@@ -284,8 +284,8 @@ public abstract class BaseZone : IZone, IDisposable
 
         var clientUpdatePacketHitpoints = new ClientUpdatePacketHitpoints
         {
-            CurrentHitpoints = 2500,
-            MaxHitpoints = 2500
+            CurrentHitpoints = player.Hitpoints,
+            MaxHitpoints = player.MaxHitpoints
         };
 
         player.SendTunneled(clientUpdatePacketHitpoints);

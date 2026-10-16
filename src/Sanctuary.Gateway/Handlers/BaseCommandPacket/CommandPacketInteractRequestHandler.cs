@@ -33,6 +33,7 @@ public static class CommandPacketInteractRequestHandler
     private static IResourceManager _resourceManager = null!;
     private static IRewardManager _rewardManager = null!;
     private static IQuestManager _questManager = null!;
+    private static ICombatManager _combatManager = null!;
 
     public static void ConfigureServices(IServiceProvider serviceProvider)
     {
@@ -42,6 +43,7 @@ public static class CommandPacketInteractRequestHandler
         _resourceManager = serviceProvider.GetRequiredService<IResourceManager>();
         _rewardManager = serviceProvider.GetRequiredService<IRewardManager>();
         _questManager = serviceProvider.GetRequiredService<IQuestManager>();
+        _combatManager = serviceProvider.GetRequiredService<ICombatManager>();
     }
 
     public static bool HandlePacket(GatewayConnection connection, ReadOnlySpan<byte> data)
@@ -71,6 +73,10 @@ public static class CommandPacketInteractRequestHandler
             return HandleCollectionCoin(connection, collectionCoin);
 
         if (entity is Npc npc && _questManager.TryInteract(connection.Player, npc))
+            return true;
+
+        // Clicking an enemy (or the "Press X" prompt over it) attacks it.
+        if (entity is Npc enemy && _combatManager.TryAttackTarget(connection.Player, enemy))
             return true;
 
         entity.OnInteract(connection.Player);

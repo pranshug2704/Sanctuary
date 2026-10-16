@@ -20,6 +20,7 @@ public static class AbilityPacketClientRequestStartAbilityHandler
 {
     private static ILogger _logger = null!;
     private static IResourceManager _resourceManager = null!;
+    private static ICombatManager _combatManager = null!;
 
     // Tried in order; first match handles it. The default matches anything, so it goes last.
     private static ConsumableAbility[] _consumableAbilities = [];
@@ -30,6 +31,7 @@ public static class AbilityPacketClientRequestStartAbilityHandler
 
         _logger = loggerFactory.CreateLogger(nameof(AbilityPacketClientRequestStartAbilityHandler));
         _resourceManager = serviceProvider.GetRequiredService<IResourceManager>();
+        _combatManager = serviceProvider.GetRequiredService<ICombatManager>();
 
         var abilityServices = new AbilityServices(
             _logger,
@@ -64,6 +66,9 @@ public static class AbilityPacketClientRequestStartAbilityHandler
 
         if (abilityPacketClientRequestStartAbility.Data.Id == ConsumableAbility.ActionBarId)
             return HandleItemAbility(connection.Player, abilityPacketClientRequestStartAbility);
+
+        if (_combatManager.TryUseAbility(connection.Player, abilityPacketClientRequestStartAbility.Data.Id, abilityPacketClientRequestStartAbility.Data.Slot))
+            return true;
 
         return ConsumableAbility.SendFailure(connection.Player);
     }

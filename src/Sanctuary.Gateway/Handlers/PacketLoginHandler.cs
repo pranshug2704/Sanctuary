@@ -25,6 +25,7 @@ public static class PacketLoginHandler
     private static IResourceManager _resourceManager = null!;
     private static IDbContextFactory<DatabaseContext> _dbContextFactory = null!;
     private static IQuestManager _questManager = null!;
+    private static ICombatManager _combatManager = null!;
 
     public static void ConfigureServices(IServiceProvider serviceProvider)
     {
@@ -36,6 +37,7 @@ public static class PacketLoginHandler
         _resourceManager = serviceProvider.GetRequiredService<IResourceManager>();
         _dbContextFactory = serviceProvider.GetRequiredService<IDbContextFactory<DatabaseContext>>();
         _questManager = serviceProvider.GetRequiredService<IQuestManager>();
+        _combatManager = serviceProvider.GetRequiredService<ICombatManager>();
 
         var options = serviceProvider.GetRequiredService<IOptionsMonitor<GatewayServerOptions>>();
         _options = options.CurrentValue;
@@ -231,6 +233,9 @@ public static class PacketLoginHandler
 
         // The quest journal (QuestManager sends it quiet, so no "Quest Started" toasts).
         _questManager.SendJournal(connection.Player);
+
+        // Overworld combat on: the client only floats hit numbers in this mode.
+        _combatManager.OnPlayerReady(connection.Player);
 
         _logger.LogInformation("{address} successfully logged in with character {name} ({id}).", connection.EndPoint.Address, character.FullName, character.Id);
 

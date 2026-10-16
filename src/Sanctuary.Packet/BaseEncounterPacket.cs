@@ -20,5 +20,9 @@ public class BaseEncounterPacket
     {
         writer.Write(OpCode);
         writer.Write(SubOpCode);
+
+        // Every encounter packet starts with these two (client schema "i16 i16 u32 u32 ...").
+        writer.Write(Unknown);
+        writer.Write(Unknown2);
     }
 }

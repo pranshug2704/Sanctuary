@@ -69,6 +69,9 @@ public class Npc : IScriptableNpc, IEntity
     /// </summary>
     public int Disposition { get; set; } = 1;
 
+    /// <summary>AddNpc Unknown41: draws a hit point bar over the npc (combat).</summary>
+    public bool ShowHealthBar { get; set; }
+
     public Action<Player>? InteractAction { get; set; }
     public Action? UpdateEverySecondAction { get; set; }
     public Action? UpdateEveryTickAction { get; set; }
@@ -406,7 +409,7 @@ public class Npc : IScriptableNpc, IEntity
             Unknown38 = default,
             Unknown39 = default,
             Unknown40 = default,
-            Unknown41 = default,
+            Unknown41 = ShowHealthBar,
             DisableCollision = !Collidable,
 
             HasTilt = Tilt.HasValue,
@@ -729,6 +732,18 @@ public class Npc : IScriptableNpc, IEntity
         ZoneTile.Entities.Remove(Guid, out _);
 
         Zone.TryRemoveNpc(Guid);
+    }
+
+    /// <summary>Turns in place to face a point (same yaw convention as PathFollower).</summary>
+    public void FaceTowards(Vector3 point)
+    {
+        var dx = point.X - Position.X;
+        var dz = point.Z - Position.Z;
+
+        if (dx * dx + dz * dz < 0.01f)
+            return;
+
+        UpdatePosition(Position, Quaternion.CreateFromYawPitchRoll(MathF.Atan2(dx, dz), 0f, 0f));
     }
 
     public void MoveTo(Vector3 goalPosition, bool direct = false)
