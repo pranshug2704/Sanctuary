@@ -1,0 +1,436 @@
+// Quests offered by npcs (QuestManager). Text fields are client string ids. Goals run in order:
+//   TalkToNpc     { TargetGuid }                 click the npc
+//   ReachLocation { ReachPosition, ReachRadius } walk there
+//   Collect       { CollectNodeType and/or CollectItemDefinitionId, RequiredCount }
+//   Interact      { Objects: { NameId, ModelId, Scale, CompositeEffectId, Positions }, RequiredCount }
+//                 click quest-only objects; shown only to players on that goal, each counts once
+// Guids are the static npc guids from Scripts/Zone/*.lua.
+[
+  {
+    // Original Memorial Caverns quest. Mural positions recorded in game.
+    "Comment": "Looking for Volunteers",
+    "QuestId": 1,
+    "TitleId": 21604,             // Looking for Volunteers
+    "DescriptionId": 21605,       // To become an official volunteer tour guide, ...
+    "HelperTextId": 21609,        // Explore the Memorial Caverns.
+    "GiverDialogueId": 21602,     // Welcome to the Memoral Caverns. I am Tori. ...
+    "ProgressDialogueId": 73282,  // Have you found all the locations yet? ...
+    "TurnInDialogueId": 21686,    // You found all the locations? Wow! ... Take this shirt ...
+    "GiverGuid": 100000002449,    // Tori
+    "Goals": [
+      {
+        "Type": "TalkToNpc",
+        "NameId": 21613,          // Find Arnie
+        "DescriptionId": 21609,
+        "DialogueId": 21818,      // Behind me and to the left, you can view our prized exhibits, the murals. ...
+        "TargetGuid": 100000002468
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 21632,          // Find Fhred
+        "DescriptionId": 21609,
+        "TargetGuid": 100000002472
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21637,          // Find the first mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -975.01, -36.01, 359.57 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21643,          // Find the second mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -1016.57, -34.79, 366.15 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21645,          // Find the third mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -1053.68, -32.79, 351.24 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21650,          // Find the fourth mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -1071.93, -32.45, 314.9 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21653,          // Find the fifth mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -1067.65, -30.9, 273.99 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21657,          // Find the sixth mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -1037.76, -29.95, 245.58 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21661,          // Find the seventh mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -997.15, -27.5, 239.89 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "ReachLocation",
+        "NameId": 21664,          // Find the eighth mural
+        "DescriptionId": 15935,   // Come to see the murals have you? Activate the magic within the murals ...
+        "ReachPosition": [ -962.36, -26.77, 261.45 ],
+        "ReachRadius": 10
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 21669,          // Return to Tori in the Memorial Caverns
+        "DescriptionId": 21670,   // Tori can be found in the Memorial Caverns in Sanctuary.
+        "TargetGuid": 100000002449
+      }
+    ],
+    "RewardCoins": 100,
+    "RewardExperience": 50,
+    "RewardItems": [
+      { "ItemDefinitionId": 17212, "Quantity": 1 }  // Memorial Caverns Explorer's Shirt
+    ]
+  },
+  {
+    // Unreleased in the original game (title reads "NOT LIVE - ..."); kept to exercise a
+    // collect goal with the sparkling water nodes near the Memorial Caverns.
+    "Comment": "Steelbloom's Secret Weapon",
+    "QuestId": 2,
+    "TitleId": 36071,             // NOT LIVE - Steelbloom's Secret Weapon
+    "DescriptionId": 36072,       // Steelbloom admits that your skill shines through ...
+    "HelperTextId": 36086,
+    "GiverDialogueId": 36070,     // Your forging skills are admirable. ...
+    "TurnInDialogueId": 9836,     // You got everything I asked for? Awesome! ...
+    "GiverGuid": 100000002361,    // Steelbloom
+    "PrerequisiteQuestId": 1,
+    "Goals": [
+      {
+        "Type": "Collect",
+        "NameId": 36086,          // Collect some water from pond near the Great Tree.
+        "DescriptionId": 36087,   // The Great Tree is located in Sanctuary.
+        "CollectNodeType": "sparkling-water",
+        "RequiredCount": 3
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 36091,          // Return to Steelbloom and talk to him.
+        "DescriptionId": 36065,   //  Talk to Steelbloom in Sanctuary.
+        "TargetGuid": 100000002361
+      }
+    ],
+    "RewardCoins": 250,
+    "RewardExperience": 100
+  }
+  ,
+  // ---- Pixie Nursery (south-east of Sanctuary, around -360, 0, -780) ----
+  // Rebuilt from the client locale. The Flax's-fish story uses the final (live) strings
+  // (ids 389xxx) where they replaced older ones. The original coin/XP amounts are unknown.
+  // Quest objects (cat bowls, flowers, gummyfruit) sit 2 m from collection node spawn
+  // points or npcs, which are known to be on the ground.
+  {
+    "Comment": "Fishy Business",
+    "QuestId": 3,
+    "TitleId": 38043,             // Fishy Business
+    "DescriptionId": 38044,       // Blazing Star wants you to check all of the cats' bowls ...
+    "HelperTextId": 116709,       // Check all of the cats' bowls at the Pixie Nursery ...
+    "GiverDialogueId": 38042,     // I saw a bunch of cats lugging around fish. ...
+    "ProgressDialogueId": 38130,  // Did you check all of the cats' bowls yet? ...
+    "TurnInDialogueId": 45612,    // Oh my, this is a sad day, but I know that cat. ...
+    "GiverGuid": 100000003380,    // Blazing Star
+    "Goals": [
+      {
+        "Type": "Interact",
+        "NameId": 389708,         // Check the first cat's bowl
+        "DescriptionId": 38044,
+        "Objects": { "NameId": 389719, "ModelId": 349, "Positions": [ [ -304.0, 2.7, -641.7 ] ] }       // Cat Bowl, next to the cat by Greenthumb
+      },
+      {
+        "Type": "Interact",
+        "NameId": 389709,         // Check the second cat's bowl
+        "DescriptionId": 38044,
+        "Objects": { "NameId": 389719, "ModelId": 349, "Positions": [ [ -366.8, 0.5, -637.3 ] ] }       // next to the other cat
+      },
+      {
+        "Type": "Interact",
+        "NameId": 389710,         // Check the third cat's bowl
+        "DescriptionId": 38044,
+        "Objects": { "NameId": 389719, "ModelId": 349, "Positions": [ [ -335.6, 0.1, -681.5 ] ] }       // by Poppy Wigglewings
+      },
+      {
+        "Type": "Interact",
+        "NameId": 389712,         // Check the fourth cat's bowl
+        "DescriptionId": 38044,
+        "DialogueId": 389911,     // Oh no! This bowl has a fish collar inside of it. ...
+        "Objects": { "NameId": 389719, "ModelId": 349, "Positions": [ [ -351.4, -0.8, -700.2 ] ] }      // by Hex Webdancer
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38127,          // Return to Blazing Star
+        "DescriptionId": 116709,
+        "TargetGuid": 100000003380
+      }
+    ],
+    "RewardCoins": 50,
+    "RewardExperience": 25
+  },
+  {
+    "Comment": "Who Done It?",
+    "QuestId": 4,
+    "TitleId": 389951,            // Who Done It?
+    "DescriptionId": 389952,      // Blazing Star wants you to speak to Zinnea, Oxalis and Funnel ...
+    "HelperTextId": 389958,       // Speak with the lab workers at the Pixie Nursery. ...
+    "GiverDialogueId": 389950,    // That cat was owned by one of those lab workers. ...
+    "ProgressDialogueId": 389975, // Did you speak to each of the lab workers at the green house? ...
+    "TurnInDialogueId": 389953,   // I didn't mean to make anyone upset. My cat likes fish ...
+    "GiverGuid": 100000003380,    // Blazing Star
+    "TurnInGuid": 100000003386,   // Oxalis Shamrock owns up
+    "PrerequisiteQuestId": 3,
+    "Goals": [
+      {
+        "Type": "TalkToNpc",
+        "NameId": 389959,         // Speak with Zinnea Magnolio
+        "DescriptionId": 389958,
+        "DialogueId": 389967,     // Oh, that's not my cat, but I think it might belong to one of the other lab workers.
+        "TargetGuid": 100000003389
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38051,          // Talk to Funnel Bindweed
+        "DescriptionId": 38052,   // She's on the lilli pads at the Pixie Nursery.
+        "DialogueId": 389970,     // I remember that cat. Nice cat, but it's not mine. ...
+        "TargetGuid": 100000003388
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 390017,         // Talk to Oxalis
+        "DescriptionId": 38054,   // Oxalis can be found at the greenhouse at the Pixie Nursery.
+        "DialogueId": 390019,     // Oh no... My cat ate Flax's pet fish? This is horrible!
+        "TargetGuid": 100000003386
+      }
+    ],
+    "RewardCoins": 50,
+    "RewardExperience": 25
+  },
+  {
+    "Comment": "Oxalis' Secret",
+    "QuestId": 5,
+    "TitleId": 38062,             // Oxalis' Secret
+    "DescriptionId": 38144,       // Gather fish from Bulb and bring the fish, along with a fishbowl to Flax ...
+    "HelperTextId": 116723,       // Talk to Bulb at the Pixie Nursery and see if he can catch a couple of fish for Flax.
+    "GiverDialogueId": 38142,     // Here's my idea. Bulb is always fishing down by the pond. ...
+    "ProgressDialogueId": 390033, // Did you bring the fish to Flax yet? ...
+    "TurnInDialogueId": 38165,    // How did Flax take the news? He has forgiven me? ...
+    "GiverGuid": 100000003386,    // Oxalis Shamrock
+    "PrerequisiteQuestId": 4,
+    "Goals": [
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38154,          // Talk to Bulb
+        "DescriptionId": 38155,   // This retired adventurer can be found fishing near the pond ...
+        "DialogueId": 390031,     // I think I know just the right fish. ...
+        "TargetGuid": 100000003370
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38156,          // Talk to Flax
+        "DescriptionId": 38157,   // Flax is near the edge of the pond ...
+        "DialogueId": 2134,       // What's this? Aww... Oxalis asked you to give this to me? ...
+        "TargetGuid": 100000003379
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38160,          // Return to Oxalis and speak with him
+        "DescriptionId": 38054,
+        "TargetGuid": 100000003386
+      }
+    ],
+    "RewardCoins": 100,
+    "RewardExperience": 50
+  },
+  {
+    "Comment": "A Pretty Necklace",
+    "QuestId": 6,
+    "TitleId": 38301,             // A Pretty Necklace
+    "DescriptionId": 38302,       // Zinnea needs sparkling flowers to make some necklaces ...
+    "HelperTextId": 116712,       // Zinnea needs you to get her sparkling flowers to make necklaces. ...
+    "GiverDialogueId": 38300,     // All my friends are asking me to make them flower necklaces! ...
+    "ProgressDialogueId": 38311,  // Did you forget already? I need twelve sparkling flowers ...
+    "TurnInDialogueId": 38312,    // Wow! You collected all the flowers for me! ...
+    "GiverGuid": 100000003389,    // Zinnea Magnolio
+    "Goals": [
+      {
+        "Type": "Interact",
+        "NameId": 38307,          // Collect sparkling flowers
+        "DescriptionId": 38302,
+        "RequiredCount": 12,
+        "Objects": {
+          "NameId": 38304,        // A Sparkling Flower
+          "ModelId": 670,         // sg_collection_node_flowers_rare_01
+          "CompositeEffectId": 5740, // rare node sparkle
+          "Positions": [
+            [ -263.5, 5.18, -772.22 ], [ -358.75, 0.43, -655.71 ], [ -241.98, 6.17, -769.45 ],
+            [ -449.05, 5.94, -676.08 ], [ -504.92, 7.56, -797.04 ], [ -323.79, 1.11, -629.92 ],
+            [ -413.05, 0.86, -625.13 ], [ -489.82, 8.99, -865.42 ], [ -362.23, 2.06, -606.34 ],
+            [ -528.99, 5.24, -729.83 ], [ -515.28, 3.64, -691.24 ], [ -329.35, 8.49, -595.91 ],
+            [ -473.33, 0.66, -621.47 ], [ -549.52, 8.93, -792.94 ]
+          ]
+        }
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38309,          // Return to Zinnea
+        "DescriptionId": 38302,
+        "TargetGuid": 100000003389
+      }
+    ],
+    "RewardCoins": 100,
+    "RewardExperience": 50
+  },
+  {
+    "Comment": "The Concoction",
+    "QuestId": 7,
+    "TitleId": 38328,             // The Concoction
+    "DescriptionId": 38329,       // Funnel Bindweed has asked you to harvest five gummyfruit. ...
+    "HelperTextId": 116714,       // Funnel Bindweed wants you to harvest gummyfruit ...
+    "GiverDialogueId": 38327,     // Those darn chugawugs and their tasty sasparilla! ...
+    "ProgressDialogueId": 38334,  // Are you having trouble finding gummyfruit? ...
+    "TurnInDialogueId": 2133,     // Thanks for bringing me the gummyfruit. ...
+    "GiverGuid": 100000003388,    // Funnel Bindweed
+    "Goals": [
+      {
+        "Type": "Interact",
+        "NameId": 38330,          // Harvest gummyfruit
+        "DescriptionId": 38329,
+        "RequiredCount": 5,
+        "Objects": {
+          "NameId": 117115,       // Gummyfruit
+          "ModelId": 3505,        // farming_vinelow_gummyfruit_harvestable_01
+          "Positions": [
+            [ -339.39, 0.12, -759.3 ], [ -418.55, -3.73, -799.56 ], [ -320.24, -0.32, -841.75 ],
+            [ -315.93, 0.94, -730.91 ], [ -386.01, 1.55, -681.75 ], [ -289.32, 1.06, -695.45 ]
+          ]
+        }
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38332,          // Return to Funnel Bindweed
+        "DescriptionId": 38329,
+        "TargetGuid": 100000003388
+      }
+    ],
+    "RewardCoins": 75,
+    "RewardExperience": 40
+  }
+  ,
+  {
+    "Comment": "Not Sweet Enough",
+    "QuestId": 8,
+    "TitleId": 38351,             // Not Sweet Enough
+    "DescriptionId": 38352,       // Funnel Bindweed has asked you to harvest ten chugaroot for him. ...
+    "HelperTextId": 38352,
+    "GiverDialogueId": 38350,     // You did a great job harvesting that gummyfruit, but ... chugaroot ...
+    "ProgressDialogueId": 38357,  // Are you still going to get my ten chugaroots? ...
+    "TurnInDialogueId": 38358,    // Ah, my chugaroot. Thank you. This should do the trick. ...
+    "GiverGuid": 100000003388,    // Funnel Bindweed
+    "PrerequisiteQuestId": 7,
+    "Goals": [
+      {
+        "Type": "Interact",
+        "NameId": 38354,          // Harvest chugaroot
+        "DescriptionId": 38352,
+        "RequiredCount": 10,
+        "Objects": {
+          "NameId": 69330,        // Chugaroot
+          "ModelId": 3630,        // overworld_root_chugaroot_harvestable_01
+          "Positions": [          // flower node spots, 2 m north
+            [ -261.5, 5.18, -770.22 ], [ -356.75, 0.43, -653.71 ], [ -239.98, 6.17, -767.45 ],
+            [ -447.05, 5.94, -674.08 ], [ -502.92, 7.56, -795.04 ], [ -321.79, 1.11, -627.92 ],
+            [ -411.05, 0.86, -623.13 ], [ -487.82, 8.99, -863.42 ], [ -360.23, 2.06, -604.34 ],
+            [ -526.99, 5.24, -727.83 ], [ -513.28, 3.64, -689.24 ], [ -327.35, 8.49, -593.91 ]
+          ]
+        }
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38332,          // Return to Funnel Bindweed
+        "DescriptionId": 38352,
+        "TargetGuid": 100000003388
+      }
+    ],
+    "RewardCoins": 100,
+    "RewardExperience": 50
+  },
+  {
+    "Comment": "A Pinch of Choy",
+    "QuestId": 9,
+    "TitleId": 38364,             // A Pinch of Choy
+    "DescriptionId": 38366,       // Funnel needs four choychoy to finish off his drink ...
+    "HelperTextId": 38366,
+    "GiverDialogueId": 38365,     // There's still something missing from my recipe. ... Choychoy! ...
+    "ProgressDialogueId": 38370,  // I really need those four choychoy when you have time. ...
+    "TurnInDialogueId": 2127,     // Wow, thanks! I need to finish making this. ... This is going to change the world!
+    "GiverGuid": 100000003388,    // Funnel Bindweed
+    "PrerequisiteQuestId": 8,
+    "Goals": [
+      {
+        "Type": "Interact",
+        "NameId": 38367,          // Harvest choychoy
+        "DescriptionId": 38366,
+        "RequiredCount": 4,
+        "Objects": {
+          "NameId": 117119,       // Choychoy
+          "ModelId": 3644,        // overworld_vinelow_choychoy_harvestable_01
+          "Positions": [          // robgoblin junk / rare flower node spots, 2 m south
+            [ -341.39, 0.12, -761.3 ], [ -420.55, -3.73, -801.56 ], [ -322.24, -0.32, -843.75 ],
+            [ -317.93, 0.94, -732.91 ], [ -388.01, 1.55, -683.75 ]
+          ]
+        }
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 38332,          // Return to Funnel Bindweed
+        "DescriptionId": 38366,
+        "TargetGuid": 100000003388
+      }
+    ],
+    "RewardCoins": 100,
+    "RewardExperience": 50
+  },
+  {
+    // The fragment comes from an earlier Floren Forest quest that isn't rebuilt yet.
+    "Comment": "Isn't It Floren?",
+    "QuestId": 10,
+    "TitleId": 23097,             // Isn't It Floren?
+    "DescriptionId": 23096,       // Sakka is baffled by the mysterious fragment ... Bring the fragment to Lief ...
+    "HelperTextId": 23099,        // Take the mysterious fragment to Lief and see if knows what it is.
+    "GiverDialogueId": 24973,     // I am baffled by this fragment you found. ... Take the fragment to Lief ...
+    "TurnInDialogueId": 9894,     // So Lief didn't know what it is either? This is most unfortunate. ...
+    "GiverGuid": 100000003385,    // Sakka
+    "Goals": [
+      {
+        "Type": "TalkToNpc",
+        "NameId": 23099,          // Take the mysterious fragment to Lief and see if knows what it is.
+        "DescriptionId": 23100,   // Lief can be found at the Pixie Nursery.
+        "DialogueId": 23104,      // This is indeed a strange fragment. I do not know what it is ...
+        "TargetGuid": 100000003387
+      },
+      {
+        "Type": "TalkToNpc",
+        "NameId": 37683,          // Return to Sakka
+        "DescriptionId": 23101,   // Return to Sakka and let him know what Lief said about the fragment.
+        "TargetGuid": 100000003385
+      }
+    ],
+    "RewardCoins": 50,
+    "RewardExperience": 25
+  }
+]
